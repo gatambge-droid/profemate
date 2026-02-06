@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problemas - Números Enteros</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #333; line-height: 1.6; min-height: 100vh;
+        }
+        .container { 
+            max-width: 1000px; margin: 20px auto; 
+            background: white; padding: 30px; 
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 { 
+            color: #2c3e50; text-align: center; margin-bottom: 20px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav { 
+            display: flex; justify-content: space-between; 
+            margin-bottom: 30px; flex-wrap: wrap; gap: 10px;
+        }
+        .btn { 
+            padding: 10px 20px; background: #3498db; color: white; 
+            border: none; border-radius: 5px; text-decoration: none; 
+            font-weight: bold; cursor: pointer;
+        }
+        .btn:hover { background: #2980b9; }
+        .btn-problema { background: #e74c3c; }
+        .btn-problema:hover { background: #c0392b; }
+        
+        .problema { 
+            background: #f8f9fa; padding: 25px; margin: 25px 0; 
+            border-radius: 10px; border-left: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .enunciado { 
+            font-weight: bold; margin-bottom: 15px; 
+            color: #2c3e50; font-size: 1.1em;
+            display: flex; align-items: flex-start; gap: 10px;
+        }
+        .numero-problema {
+            background: #e74c3c; color: white; 
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+        }
+        .datos { 
+            background: #e8f4fc; padding: 15px; 
+            border-radius: 8px; margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .formulario-problema { margin: 20px 0; }
+        .campo-respuesta { 
+            width: 150px; padding: 10px; 
+            border: 2px solid #ddd; border-radius: 5px;
+            font-size: 16px; margin: 0 10px;
+        }
+        .unidad { color: #7f8c8d; font-style: italic; }
+        .pasos-solucion { 
+            background: #fff8e1; padding: 20px; 
+            border-radius: 8px; margin-top: 20px;
+            border-left: 4px solid #f39c12;
+            display: none;
+        }
+        .feedback { 
+            padding: 15px; border-radius: 5px; 
+            margin-top: 15px; display: none;
+        }
+        .correcto { 
+            background: #d4edda; color: #155724; 
+            border: 1px solid #c3e6cb;
+        }
+        .incorrecto { 
+            background: #f8d7da; color: #721c24; 
+            border: 1px solid #f5c6cb;
+        }
+        .resultados-finales { 
+            background: #2c3e50; color: white; 
+            padding: 25px; border-radius: 10px; 
+            margin-top: 30px; text-align: center;
+        }
+        .puntuacion { 
+            font-size: 3em; font-weight: bold; 
+            color: #f1c40f; margin: 10px 0;
+        }
+        .imagen-problema {
+            max-width: 300px; margin: 15px auto;
+            display: block; border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .oculto { display: none; }
+        .hint { 
+            font-size: 0.9em; color: #7f8c8d; 
+            font-style: italic; margin-top: 10px;
+        }
+        .paso { margin: 10px 0; padding-left: 15px; }
+        @media (max-width: 768px) { 
+            .container { padding: 15px; }
+            .nav { flex-direction: column; }
+            .campo-respuesta { width: 100%; margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="capitulo2.html" class="btn">⬅️ Volver a Ejercicios</a>
+            <a href="capitulo4.html" class="btn">Siguiente ➡️</a>
+        </div>
+        
+        <h1>🧮 Problemas Contextuales con Números Enteros</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">
+            Aplica lo aprendido a situaciones reales. Resuelve cada problema paso a paso.
+        </p>
+        
+        <!-- PROBLEMA 1 -->
+        <div class="problema" id="p1">
+            <div class="enunciado">
+                <div class="numero-problema">1</div>
+                <div>Aristóteles nació en 384 a.C. y falleció en 322 a.C. ¿Cuántos años vivió?</div>
+            </div>
+            
+            <div class="datos">
+                <p><strong>Datos:</strong></p>
+                <ul>
+                    <li>Nacimiento: 384 a.C. (años antes de Cristo se representan con números negativos)</li>
+                    <li>Fallecimiento: 322 a.C.</li>
+                </ul>
+            </div>
+            
+            <div class="formulario-problema">
+                <p><strong>Solución:</strong> (-322) - (-384) = 
+                <input type="number" class="campo-respuesta" id="r1" placeholder="?">
+                <span class="unidad">años</span></p>
+                
+                <button onclick="verificarProblema(1)" class="btn btn-problema">Verificar Problema 1</button>
+                <button onclick="mostrarSolucion(1)" class="btn" style="background:#f39c12;">Ver Solución Paso a Paso</button>
+                
+                <div class="feedback" id="fb1"></div>
+                
+                <div class="pasos-solucion" id="sol1">
+                    <h4>📝 Solución Paso a Paso:</h4>
+                    <div class="paso"><strong>Paso 1:</strong> Convertir fechas a números enteros</div>
+                    <div class="paso">384 a.C. = -384 (porque es antes de Cristo)</div>
+                    <div class="paso">322 a.C. = -322</div>
+                    <div class="paso"><strong>Paso 2:</strong> Calcular años vividos</div>
+                    <div class="paso">(-322) - (-384) = -322 + 384 = 62</div>
+                    <div class="paso"><strong>Respuesta:</strong> 62 años</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROBLEMA 2 -->
+        <div class="problema" id="p2">
+            <div class="enunciado">
+                <div class="numero-problema">2</div>
+                <div>Martina tenía una deuda de $200. Pagó $50 y luego pidió prestado $30 más. ¿Cuál es su situación ahora?</div>
+            </div>
+            
+            <div class="datos">
+                <p><strong>Datos:</strong></p>
+                <ul>
+                    <li>Deuda inicial: -$200 (negativo porque es deuda)</li>
+                    <li>Pago: +$50 (positivo porque reduce la deuda)</li>
+                    <li>Nuevo préstamo: -$30 (negativo porque aumenta la deuda)</li>
+                </ul>
+            </div>
+            
+            <div class="formulario-problema">
+                <p><strong>Solución:</strong> (-200) + 50 + (-30) = 
+                <input type="number" class="campo-respuesta" id="r2" placeholder="?">
+                <span class="unidad">dólares</span></p>
+                <p class="hint">Nota: Si el resultado es negativo, sigue en deuda.</p>
+                
+                <button onclick="verificarProblema(2)" class="btn btn-problema">Verificar Problema 2</button>
+                <button onclick="mostrarSolucion(2)" class="btn" style="background:#f39c12;">Ver Solución Paso a Paso</button>
+                
+                <div class="feedback" id="fb2"></div>
+                
+                <div class="pasos-solucion" id="sol2">
+                    <h4>📝 Solución Paso a Paso:</h4>
+                    <div class="paso"><strong>Paso 1:</strong> Representar la situación con números</div>
+                    <div class="paso">Deuda inicial: -200</div>
+                    <div class="paso">Pago: +50 (porque reduce la deuda)</div>
+                    <div class="paso">Nuevo préstamo: -30 (porque aumenta la deuda)</div>
+                    <div class="paso"><strong>Paso 2:</strong> Operar</div>
+                    <div class="paso">(-200) + 50 = -150</div>
+                    <div class="paso">(-150) + (-30) = -180</div>
+                    <div class="paso"><strong>Respuesta:</strong> -$180 (todavía tiene deuda)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROBLEMA 3 -->
+        <div class="problema" id="p3">
+            <div class="enunciado">
+                <div class="numero-problema">3</div>
+                <div>La temperatura un día fue de -5°C y al día siguiente fue de 3°C. ¿Cuánto cambió la temperatura?</div>
+            </div>
+            
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/05/07/cold-1867543_1280.jpg" 
+                 alt="Termómetro mostrando temperatura" 
+                 class="imagen-problema">
+            
+            <div class="formulario-problema">
+                <p><strong>Solución:</strong> 3 - (-5) = 
+                <input type="number" class="campo-respuesta" id="r3" placeholder="?">
+                <span class="unidad">°C</span></p>
+                <p class="hint">Para hallar la diferencia entre dos temperaturas, resta la inicial de la final.</p>
+                
+                <button onclick="verificarProblema(3)" class="btn btn-problema">Verificar Problema 3</button>
+                <button onclick="mostrarSolucion(3)" class="btn" style="background:#f39c12;">Ver Solución Paso a Paso</button>
+                
+                <div class="feedback" id="fb3"></div>
+                
+                <div class="pasos-solucion" id="sol3">
+                    <h4>📝 Solución Paso a Paso:</h4>
+                    <div class="paso"><strong>Paso 1:</strong> Temperatura inicial: -5°C</div>
+                    <div class="paso">Temperatura final: 3°C</div>
+                    <div class="paso"><strong>Paso 2:</strong> Calcular el cambio</div>
+                    <div class="paso">Cambio = Temperatura final - Temperatura inicial</div>
+                    <div class="paso">Cambio = 3 - (-5)</div>
+                    <div class="paso"><strong>Paso 3:</strong> Recordar que "menos por menos es más"</div>
+                    <div class="paso">3 - (-5) = 3 + 5 = 8</div>
+                    <div class="paso"><strong>Respuesta:</strong> Subió 8°C</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROBLEMA 4 -->
+        <div class="problema" id="p4">
+            <div class="enunciado">
+                <div class="numero-problema">4</div>
+                <div>Un submarino está a -300 m bajo el nivel del mar. Una montaña cercana tiene 1500 m sobre el nivel del mar. ¿Cuál es la diferencia total de altura?</div>
+            </div>
+            
+            <img src="https://cdn.pixabay.com/photo/2017/01/31/20/57/sea-2027376_1280.png" 
+                 alt="Submarino y montaña" 
+                 class="imagen-problema">
+            
+            <div class="formulario-problema">
+                <p><strong>Solución:</strong> Usando valor absoluto: |1500| + |-300| = 
+                <input type="number" class="campo-respuesta" id="r4" placeholder="?">
+                <span class="unidad">metros</span></p>
+                <p class="hint">La distancia total se calcula sumando las distancias absolutas.</p>
+                
+                <button onclick="verificarProblema(4)" class="btn btn-problema">Verificar Problema 4</button>
+                <button onclick="mostrarSolucion(4)" class="btn" style="background:#f39c12;">Ver Solución Paso a Paso</button>
+                
+                <div class="feedback" id="fb4"></div>
+                
+                <div class="pasos-solucion" id="sol4">
+                    <h4>📝 Solución Paso a Paso:</h4>
+                    <div class="paso"><strong>Paso 1:</strong> Identificar las alturas con signo</div>
+                    <div class="paso">Submarino: -300 m (negativo porque está bajo el mar)</div>
+                    <div class="paso">Montaña: 1500 m (positivo porque está sobre el mar)</div>
+                    <div class="paso"><strong>Paso 2:</strong> Calcular valor absoluto de cada uno</div>
+                    <div class="paso">|1500| = 1500</div>
+                    <div class="paso">|-300| = 300</div>
+                    <div class="paso"><strong>Paso 3:</strong> Sumar las distancias absolutas</div>
+                    <div class="paso">1500 + 300 = 1800</div>
+                    <div class="paso"><strong>Respuesta:</strong> 1800 metros de diferencia total</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PROBLEMA 5 -->
+        <div class="problema" id="p5">
+            <div class="enunciado">
+                <div class="numero-problema">5</div>
+                <div>En un videojuego, Ana empezó con 100 puntos. Perdió 30 puntos, ganó 50, perdió 20 y ganó 10. ¿Cuál es su puntuación final?</div>
+            </div>
+            
+            <div class="formulario-problema">
+                <p><strong>Solución:</strong> 100 + (-30) + 50 + (-20) + 10 = 
+                <input type="number" class="campo-respuesta" id="r5" placeholder="?">
+                <span class="unidad">puntos</span></p>
+                
+                <button onclick="verificarProblema(5)" class="btn btn-problema">Verificar Problema 5</button>
+                <button onclick="mostrarSolucion(5)" class="btn" style="background:#f39c12;">Ver Solución Paso a Paso</button>
+                
+                <div class="feedback" id="fb5"></div>
+                
+                <div class="pasos-solucion" id="sol5">
+                    <h4>📝 Solución Paso a Paso:</h4>
+                    <div class="paso"><strong>Paso 1:</strong> Representar cada acción con signo</div>
+                    <div class="paso">Inicio: +100</div>
+                    <div class="paso">Pérdida 1: -30</div>
+                    <div class="paso">Ganancia 1: +50</div>
+                    <div class="paso">Pérdida 2: -20</div>
+                    <div class="paso">Ganancia 2: +10</div>
+                    <div class="paso"><strong>Paso 2:</strong> Operar paso a paso</div>
+                    <div class="paso">100 - 30 = 70</div>
+                    <div class="paso">70 + 50 = 120</div>
+                    <div class="paso">120 - 20 = 100</div>
+                    <div class="paso">100 + 10 = 110</div>
+                    <div class="paso"><strong>Respuesta:</strong> 110 puntos</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BOTÓN PARA VER RESULTADOS FINALES -->
+        <div style="text-align:center; margin-top:40px;">
+            <button onclick="calcularResultadosProblemas()" class="btn" style="background:#9b59b6; padding:15px 30px; font-size:1.2em;">
+                📊 Ver mis resultados en problemas
+            </button>
+        </div>
+        
+        <!-- RESULTADOS FINALES -->
+        <div id="resultados-problemas" class="resultados-finales oculto">
+            <h2>🎯 Resultados de Problemas</h2>
+            <div class="puntuacion" id="puntuacion-problemas">0/5</div>
+            <p id="mensaje-problemas"></p>
+            <button onclick="reiniciarProblemas()" class="btn" style="background:#e74c3c; margin-top:15px;">
+                🔄 Reiniciar problemas
+            </button>
+            <a href="capitulo4.html" class="btn" style="background:#2ecc71; margin-top:15px; display:inline-block;">
+                Ir a Evaluación Final ➡️
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Respuestas correctas para cada problema
+        const respuestasCorrectas = {
+            1: 62,
+            2: -180,
+            3: 8,
+            4: 1800,
+            5: 110
+        };
+        
+        function verificarProblema(numero) {
+            const respuestaUsuario = document.getElementById(`r${numero}`).value;
+            const feedback = document.getElementById(`fb${numero}`);
+            const correcta = respuestasCorrectas[numero];
+            
+            if (parseInt(respuestaUsuario) === correcta) {
+                feedback.innerHTML = `✅ ¡Correcto! La respuesta es ${correcta}.`;
+                feedback.className = "feedback correcto";
+                localStorage.setItem(`problema${numero}`, '1');
+            } else if (respuestaUsuario !== '') {
+                feedback.innerHTML = `❌ Incorrecto. Intenta nuevamente o revisa la solución.`;
+                feedback.className = "feedback incorrecto";
+                localStorage.setItem(`problema${numero}`, '0');
+            } else {
+                feedback.innerHTML = `⚠️ Ingresa una respuesta.`;
+                feedback.className = "feedback incorrecto";
+            }
+            feedback.style.display = 'block';
+        }
+        
+        function mostrarSolucion(numero) {
+            const solucion = document.getElementById(`sol${numero}`);
+            if (solucion.style.display === 'block') {
+                solucion.style.display = 'none';
+            } else {
+                solucion.style.display = 'block';
+            }
+        }
+        
+        function calcularResultadosProblemas() {
+            let correctas = 0;
+            const totalProblemas = 5;
+            
+            for (let i = 1; i <= totalProblemas; i++) {
+                if (localStorage.getItem(`problema${i}`) === '1') {
+                    correctas++;
+                }
+            }
+            
+            const puntuacionElement = document.getElementById('puntuacion-problemas');
+            const mensajeElement = document.getElementById('mensaje-problemas');
+            const resultadosDiv = document.getElementById('resultados-problemas');
+            
+            puntuacionElement.textContent = `${correctas}/${totalProblemas}`;
+            
+            if (correctas === totalProblemas) {
+                mensajeElement.textContent = '🎉 ¡Excelente! Resuelves problemas como un experto.';
+            } else if (correctas >= totalProblemas * 0.7) {
+                mensajeElement.textContent = '👍 ¡Muy bien! Tienes buena comprensión de problemas.';
+            } else if (correctas >= totalProblemas * 0.5) {
+                mensajeElement.textContent = '✅ Buen trabajo, pero sigue practicando.';
+            } else {
+                mensajeElement.textContent = '📚 Necesitas repasar más los conceptos.';
+            }
+            
+            resultadosDiv.classList.remove('oculto');
+            resultadosDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Guardar progreso global
+            const porcentaje = Math.round((correctas/totalProblemas)*100);
+            localStorage.setItem('progresoProblemas', porcentaje);
+        }
+        
+        function reiniciarProblemas() {
+            // Limpiar inputs
+            document.querySelectorAll('.campo-respuesta').forEach(input => input.value = '');
+            document.querySelectorAll('.feedback').forEach(fb => fb.style.display = 'none');
+            document.querySelectorAll('.pasos-solucion').forEach(sol => sol.style.display = 'none');
+            document.getElementById('resultados-problemas').classList.add('oculto');
+            
+            // Limpiar localStorage
+            for (let i = 1; i <= 5; i++) {
+                localStorage.removeItem(`problema${i}`);
+            }
+        }
+        
+        // Cargar respuestas previas al cargar la página
+        window.onload = function() {
+            // Aquí podrías cargar respuestas previas si quisieras
+        };
+    </script>
+</body>
+</html>

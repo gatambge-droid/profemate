@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Final - Números Enteros</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #333; line-height: 1.6;
+        }
+        .container { 
+            max-width: 1000px; margin: 20px auto; 
+            background: white; padding: 30px; 
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 { 
+            color: #2c3e50; text-align: center; margin-bottom: 10px;
+            background: linear-gradient(90deg, #9b59b6, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav { 
+            display: flex; justify-content: space-between; 
+            margin-bottom: 30px; flex-wrap: wrap; gap: 10px;
+        }
+        .btn { 
+            padding: 10px 20px; background: #3498db; color: white; 
+            border: none; border-radius: 5px; text-decoration: none; 
+            font-weight: bold; cursor: pointer;
+        }
+        .btn:hover { background: #2980b9; }
+        .btn-evaluacion { background: #9b59b6; }
+        .btn-evaluacion:hover { background: #8e44ad; }
+        
+        .instrucciones { 
+            background: #e8f4fc; padding: 20px; 
+            border-radius: 10px; margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+        .pregunta { 
+            background: #f8f9fa; padding: 25px; margin: 25px 0; 
+            border-radius: 10px; border-left: 5px solid #9b59b6;
+        }
+        .enunciado-pregunta { 
+            font-weight: bold; margin-bottom: 15px; 
+            color: #2c3e50; font-size: 1.1em;
+        }
+        .opciones { margin: 15px 0; }
+        .opcion { 
+            padding: 15px; background: white; 
+            border: 2px solid #ddd; border-radius: 8px;
+            margin: 10px 0; cursor: pointer; transition: all 0.3s;
+        }
+        .opcion:hover { border-color: #3498db; background: #f0f8ff; }
+        .opcion.seleccionada { 
+            border-color: #2ecc71; background: #d4edda;
+        }
+        .opcion.incorrecta-seleccionada { 
+            border-color: #e74c3c; background: #f8d7da;
+        }
+        .campo-texto { 
+            width: 100%; padding: 12px; 
+            border: 2px solid #ddd; border-radius: 5px;
+            font-size: 16px; margin: 10px 0;
+        }
+        .resultados-finales { 
+            background: #2c3e50; color: white; 
+            padding: 30px; border-radius: 10px; 
+            margin-top: 40px; text-align: center;
+            display: none;
+        }
+        .certificado { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px; border-radius: 10px; 
+            margin: 20px 0; text-align: center;
+            border: 10px solid gold;
+        }
+        .puntuacion-final { 
+            font-size: 4em; font-weight: bold; 
+            color: #f1c40f; margin: 20px 0;
+        }
+        .btn-imprimir { 
+            background: #f39c12; margin: 10px; 
+            padding: 12px 25px; font-size: 1.1em;
+        }
+        .btn-imprimir:hover { background: #e67e22; }
+        .tiempo-restante { 
+            background: #e74c3c; color: white; 
+            padding: 15px; border-radius: 8px;
+            text-align: center; font-weight: bold;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .feedback-evaluacion { 
+            padding: 15px; border-radius: 5px; 
+            margin: 15px 0; display: none;
+        }
+        .correcto-eval { 
+            background: #d4edda; color: #155724; 
+            border: 1px solid #c3e6cb;
+        }
+        .incorrecto-eval { 
+            background: #f8d7da; color: #721c24; 
+            border: 1px solid #f5c6cb;
+        }
+        .oculto { display: none; }
+        @media (max-width: 768px) { 
+            .container { padding: 15px; }
+            .nav { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="capitulo3.html" class="btn">⬅️ Volver a Problemas</a>
+            <a href="index.html" class="btn">🏠 Inicio</a>
+        </div>
+        
+        <h1>📊 Evaluación Final de Números Enteros</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 20px;">
+            Demuestra todo lo que has aprendido en esta evaluación final
+        </p>
+        
+        <div class="instrucciones">
+            <h3>📋 Instrucciones:</h3>
+            <ol>
+                <li>Responde todas las preguntas</li>
+                <li>Tienes 20 minutos para completar la evaluación</li>
+                <li>Al finalizar, recibirás un certificado con tu puntuación</li>
+                <li>¡No uses calculadora! Debes hacer los cálculos mentalmente</li>
+            </ol>
+            <button onclick="iniciarEvaluacion()" class="btn btn-evaluacion" style="margin-top: 15px;">
+                🚀 Comenzar Evaluación
+            </button>
+        </div>
+        
+        <div id="tiempo-restante" class="tiempo-restante">
+            ⏰ Tiempo restante: <span id="contador-tiempo">20:00</span>
+        </div>
+        
+        <div id="contenido-evaluacion" class="oculto">
+            <!-- PREGUNTA 1 -->
+            <div class="pregunta" id="pregunta1">
+                <div class="enunciado-pregunta">1. ¿Cuál es el valor absoluto de |-25| + |15|?</div>
+                <div class="opciones">
+                    <div class="opcion" data-respuesta="40" onclick="seleccionarOpcion(this, 1)">40</div>
+                    <div class="opcion" data-respuesta="10" onclick="seleccionarOpcion(this, 1)">10</div>
+                    <div class="opcion" data-respuesta="-10" onclick="seleccionarOpcion(this, 1)">-10</div>
+                    <div class="opcion" data-respuesta="-40" onclick="seleccionarOpcion(this, 1)">-40</div>
+                </div>
+            </div>
+            
+            <!-- PREGUNTA 2 -->
+            <div class="pregunta" id="pregunta2">
+                <div class="enunciado-pregunta">2. Completa: (-8) × (____) = 24</div>
+                <input type="number" class="campo-texto" id="respuesta2" placeholder="Escribe tu respuesta">
+            </div>
+            
+            <!-- PREGUNTA 3 -->
+            <div class="pregunta" id="pregunta3">
+                <div class="enunciado-pregunta">3. Ordena de MENOR a MAYOR: -3, 5, -8, 0, 2</div>
+                <input type="text" class="campo-texto" id="respuesta3" placeholder="Ejemplo: -8, -3, 0, 2, 5">
+            </div>
+            
+            <!-- PREGUNTA 4 -->
+            <div class="pregunta" id="pregunta4">
+                <div class="enunciado-pregunta">4. Resuelve: 12 - (-5) + (-8) × 3</div>
+                <div class="opciones">
+                    <div class="opcion" data-respuesta="-7" onclick="seleccionarOpcion(this, 4)">-7</div>
+                    <div class="opcion" data-respuesta="7" onclick="seleccionarOpcion(this, 4)">7</div>
+                    <div class="opcion" data-respuesta="-17" onclick="seleccionarOpcion(this, 4)">-17</div>
+                    <div class="opcion" data-respuesta="17" onclick="seleccionarOpcion(this, 4)">17</div>
+                </div>
+            </div>
+            
+            <!-- PREGUNTA 5 -->
+            <div class="pregunta" id="pregunta5">
+                <div class="enunciado-pregunta">5. Problema: Un buzo está a -15 metros. Sube 8 metros y luego baja 12 metros. ¿A qué profundidad termina?</div>
+                <div class="opciones">
+                    <div class="opcion" data-respuesta="-19" onclick="seleccionarOpcion(this, 5)">-19 metros</div>
+                    <div class="opcion" data-respuesta="-5" onclick="seleccionarOpcion(this, 5)">-5 metros</div>
+                    <div class="opcion" data-respuesta="5" onclick="seleccionarOpcion(this, 5)">5 metros</div>
+                    <div class="opcion" data-respuesta="-11" onclick="seleccionarOpcion(this, 5)">-11 metros</div>
+                </div>
+            </div>
+            
+            <!-- BOTÓN PARA TERMINAR -->
+            <div style="text-align:center; margin-top:40px;">
+                <button onclick="finalizarEvaluacion()" class="btn btn-evaluacion" style="padding:15px 40px; font-size:1.2em;">
+                    ✅ Terminar Evaluación
+                </button>
+            </div>
+        </div>
+        
+        <!-- RESULTADOS FINALES -->
+        <div id="resultados-evaluacion" class="resultados-finales">
+            <h2>🎓 Resultados de tu Evaluación</h2>
+            
+            <div class="certificado">
+                <h3>📜 Certificado de Números Enteros</h3>
+                <p>Se otorga a:</p>
+                <div class="puntuacion-final" id="puntuacion-final">0/10</div>
+                <p id="mensaje-certificado"></p>
+                <p>Fecha: <span id="fecha-actual"></span></p>
+            </div>
+            
+            <div id="detalles-resultados"></div>
+            
+            <div style="margin-top:30px;">
+                <button onclick="window.print()" class="btn btn-imprimir">
+                    🖨️ Imprimir Certificado
+                </button>
+                <button onclick="reiniciarEvaluacion()" class="btn" style="background:#e74c3c;">
+                    🔄 Repetir Evaluación
+                </button>
+                <a href="index.html" class="btn" style="background:#2ecc71;">
+                    🏠 Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let tiempoRestante = 20 * 60; // 20 minutos en segundos
+        let intervalo;
+        let respuestasUsuario = {};
+        
+        function iniciarEvaluacion() {
+            document.getElementById('contenido-evaluacion').classList.remove('oculto');
+            document.getElementById('tiempo-restante').style.display = 'block';
+            document.querySelector('.instrucciones').style.display = 'none';
+            
+            // Iniciar contador
+            intervalo = setInterval(actualizarContador, 1000);
+        }
+        
+        function actualizarContador() {
+            tiempoRestante--;
+            const minutos = Math.floor(tiempoRestante / 60);
+            const segundos = tiempoRestante % 60;
+            
+            document.getElementById('contador-tiempo').textContent = 
+                `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+            
+            if (tiempoRestante <= 0) {
+                clearInterval(intervalo);
+                finalizarEvaluacion();
+            }
+        }
+        
+        function seleccionarOpcion(elemento, pregunta) {
+            // Deseleccionar otras opciones de la misma pregunta
+            const opciones = elemento.parentElement.querySelectorAll('.opcion');
+            opciones.forEach(op => op.classList.remove('seleccionada'));
+            
+            // Seleccionar esta opción
+            elemento.classList.add('seleccionada');
+            respuestasUsuario[pregunta] = elemento.getAttribute('data-respuesta');
+        }
+        
+        function finalizarEvaluacion() {
+            clearInterval(intervalo);
+            
+            // Recolectar respuestas
+            const respuesta2 = document.getElementById('respuesta2').value;
+            const respuesta3 = document.getElementById('respuesta3').value;
+            
+            // Respuestas correctas
+            const respuestasCorrectas = {
+                1: "40",
+                2: "-3",
+                3: "-8, -3, 0, 2, 5",
+                4: "-7",
+                5: "-19"
+            };
+            
+            let puntuacion = 0;
+            let detallesHTML = "<h3>📋 Detalle de respuestas:</h3><ul>";
+            
+            // Evaluar pregunta 1
+            if (respuestasUsuario[1] === respuestasCorrectas[1]) {
+                puntuacion += 2;
+                detallesHTML += "<li>✅ Pregunta 1: Correcta (+2 puntos)</li>";
+            } else {
+                detallesHTML += `<li>❌ Pregunta 1: Incorrecta. Tu respuesta: ${respuestasUsuario[1] || "Sin responder"}. Correcta: ${respuestasCorrectas[1]}</li>`;
+            }
+            
+            // Evaluar pregunta 2
+            if (respuesta2 === respuestasCorrectas[2]) {
+                puntuacion += 2;
+                detallesHTML += "<li>✅ Pregunta 2: Correcta (+2 puntos)</li>";
+            } else {
+                detallesHTML += `<li>❌ Pregunta 2: Incorrecta. Tu respuesta: ${respuesta2 || "Sin responder"}. Correcta: ${respuestasCorrectas[2]}</li>`;
+            }
+            
+            // Evaluar pregunta 3
+            if (respuesta3.replace(/\s/g, '').toLowerCase() === respuestasCorrectas[3].replace(/\s/g, '').toLowerCase()) {
+                puntuacion += 2;
+                detallesHTML += "<li>✅ Pregunta 3: Correcta (+2 puntos)</li>";
+            } else {
+                detallesHTML += `<li>❌ Pregunta 3: Incorrecta. Tu respuesta: ${respuesta3 || "Sin responder"}. Correcta: ${respuestasCorrectas[3]}</li>`;
+            }
+            
+            // Evaluar pregunta 4
+            if (respuestasUsuario[4] === respuestasCorrectas[4]) {
+                puntuacion += 2;
+                detallesHTML += "<li>✅ Pregunta 4: Correcta (+2 puntos)</li>";
+            } else {
+                detallesHTML += `<li>❌ Pregunta 4: Incorrecta. Tu respuesta: ${respuestasUsuario[4] || "Sin responder"}. Correcta: ${respuestasCorrectas[4]}</li>`;
+            }
+            
+            // Evaluar pregunta 5
+            if (respuestasUsuario[5] === respuestasCorrectas[5]) {
+                puntuacion += 2;
+                detallesHTML += "<li>✅ Pregunta 5: Correcta (+2 puntos)</li>";
+            } else {
+                detallesHTML += `<li>❌ Pregunta 5: Incorrecta. Tu respuesta: ${respuestasUsuario[5] || "Sin responder"}. Correcta: ${respuestasCorrectas[5]}</li>`;
+            }
+            
+            detallesHTML += "</ul>";
+            
+            // Mostrar resultados
+            document.getElementById('puntuacion-final').textContent = `${puntuacion}/10`;
+            document.getElementById('detalles-resultados').innerHTML = detallesHTML;
+            document.getElementById('contenido-evaluacion').style.display = 'none';
+            document.getElementById('resultados-evaluacion').style.display = 'block';
+            
+            // Mensaje según puntuación
+            const mensaje = document.getElementById('mensaje-certificado');
+            if (puntuacion >= 9) {
+                mensaje.textContent = "🎉 ¡Excelente! Dominas completamente los números enteros.";
+            } else if (puntuacion >= 7) {
+                mensaje.textContent = "👍 ¡Muy bien! Tienes un buen dominio del tema.";
+            } else if (puntuacion >= 5) {
+                mensaje.textContent = "✅ Aprobado. Sigue practicando para mejorar.";
+            } else {
+                mensaje.textContent = "📚 Necesitas repasar los conceptos. ¡No te rindas!";
+            }
+            
+            // Fecha actual
+            const fecha = new Date();
+            document.getElementById('fecha-actual').textContent = fecha.toLocaleDateString('es-ES');
+            
+            // Guardar progreso
+            localStorage.setItem('progresoEvaluacion', Math.round((puntuacion/10)*100));
+            localStorage.setItem('ultimaEvaluacion', JSON.stringify({
+                fecha: fecha.toISOString(),
+                puntuacion: puntuacion
+            }));
+        }
+        
+        function reiniciarEvaluacion() {
+            // Reiniciar variables
+            tiempoRestante = 20 * 60;
+            respuestasUsuario = {};
+            
+            // Limpiar formularios
+            document.getElementById('respuesta2').value = '';
+            document.getElementById('respuesta3').value = '';
+            
+            // Deseleccionar opciones
+            document.querySelectorAll('.opcion').forEach(op => {
+                op.classList.remove('seleccionada');
+            });
+            
+            // Ocultar resultados, mostrar instrucciones
+            document.getElementById('resultados-evaluacion').style.display = 'none';
+            document.getElementById('contenido-evaluacion').style.display = 'block';
+            document.getElementById('tiempo-restante').style.display = 'none';
+            document.querySelector('.instrucciones').style.display = 'block';
+            
+            // Reiniciar contador
+            clearInterval(intervalo);
+            document.getElementById('contador-tiempo').textContent = '20:00';
+        }
+    </script>
+</body>
+</html>
